@@ -1,9 +1,3 @@
-/**
- * @Author: xiaojiezhang
- * @Date:   2019-02-15T11:47:55-05:00
- * @Last modified by:   xiaojiezhang
- * @Last modified time: 2019-02-15T11:57:34-05:00
- */
 module.exports = function () {
   const Product = require('../app/models/product')
   const mongoose = require('mongoose')

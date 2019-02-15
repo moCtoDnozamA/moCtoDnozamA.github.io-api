@@ -1,11 +1,3 @@
-/**
- * @Author: xiaojiezhang
- * @Date:   2019-02-15T10:59:52-05:00
- * @Last modified by:   xiaojiezhang
- * @Last modified time: 2019-02-15T11:51:46-05:00
- */
-
-
 
 // require necessary NPM packages
 const express = require('express')
