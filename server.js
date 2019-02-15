@@ -2,7 +2,7 @@
  * @Author: xiaojiezhang
  * @Date:   2019-02-15T10:59:52-05:00
  * @Last modified by:   xiaojiezhang
- * @Last modified time: 2019-02-15T11:51:46-05:00
+ * @Last modified time: 2019-02-15T13:37:25-05:00
  */
 
 
@@ -16,7 +16,7 @@ const cors = require('cors')
 // require route files
 const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
-
+const productRoutes = require('./app/routes/product_routes')
 // require error handling middleware
 const errorHandler = require('./lib/error_handler')
 
@@ -28,8 +28,7 @@ const db = require('./config/db')
 const dotenv = require('dotenv')
 dotenv.config()
 
-
-const seed = require('./config/seed.js')
+// const seed = require('./config/seed.js')
 
 // Set the key based on the current environemnt
 // Set to secret key base test if in test
@@ -84,10 +83,13 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // create seed in database
-seed()
+
+app.use(productRoutes)
+// seed()
 // register route files
 app.use(exampleRoutes)
 app.use(userRoutes)
+
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be

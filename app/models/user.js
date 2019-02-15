@@ -1,3 +1,12 @@
+/**
+ * @Author: xiaojiezhang
+ * @Date:   2019-02-15T10:59:52-05:00
+ * @Last modified by:   xiaojiezhang
+ * @Last modified time: 2019-02-15T13:07:30-05:00
+ */
+
+
+
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
