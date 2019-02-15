@@ -20,24 +20,6 @@ const userSchema = new mongoose.Schema({
       return user
     }
   }
-},
-{
-  orders: []
-},
-{
-  cart: {
-    items: [{
-      item: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true,
-        quantity: {
-          type: Number,
-          required: true
-        }
-      }
-    }]
-  }
 })
 
 module.exports = mongoose.model('User', userSchema)
