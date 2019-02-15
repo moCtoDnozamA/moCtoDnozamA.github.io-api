@@ -1,3 +1,12 @@
+/**
+ * @Author: xiaojiezhang
+ * @Date:   2019-02-15T10:59:52-05:00
+ * @Last modified by:   xiaojiezhang
+ * @Last modified time: 2019-02-15T11:51:46-05:00
+ */
+
+
+
 // require necessary NPM packages
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -18,6 +27,9 @@ const db = require('./config/db')
 // load secret keys for signing tokens from .env
 const dotenv = require('dotenv')
 dotenv.config()
+
+
+const seed = require('./config/seed.js')
 
 // Set the key based on the current environemnt
 // Set to secret key base test if in test
@@ -71,6 +83,8 @@ app.use(bodyParser.json())
 // this parses requests sent by `$.ajax`, which use a different content type
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// create seed in database
+seed()
 // register route files
 app.use(exampleRoutes)
 app.use(userRoutes)
