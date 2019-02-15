@@ -1,8 +1,8 @@
 /**
  * @Author: xiaojiezhang
- * @Date:   2019-02-15T11:47:55-05:00
+ * @Date:   2019-02-15T12:04:01-05:00
  * @Last modified by:   xiaojiezhang
- * @Last modified time: 2019-02-15T13:36:17-05:00
+ * @Last modified time: 2019-02-15T13:48:38-05:00
  */
 module.exports = function () {
   return new Promise((resolve, reject) => {
