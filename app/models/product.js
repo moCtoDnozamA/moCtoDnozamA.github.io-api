@@ -2,13 +2,9 @@
  * @Author: xiaojiezhang
  * @Date:   2019-02-15T11:18:04-05:00
  * @Last modified by:   xiaojiezhang
- * @Last modified time: 2019-02-15T11:21:43-05:00
+ * @Last modified time: 2019-02-15T11:33:51-05:00
  */
 const mongoose = require('mongoose')
-const db = require('../../config/db')
-mongoose.connect(db, {
-  useMongoClient: true
-})
 
 const productSchema = new mongoose.Schema({
   imagePath: {
