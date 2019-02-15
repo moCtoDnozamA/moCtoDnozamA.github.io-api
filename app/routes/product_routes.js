@@ -57,14 +57,27 @@ router.get('/products/:id', (req, res, next) => {
 
 // CREATE
 // POST /products
-router.post('/products', requireToken, (req, res, next) => {
+router.post('/products', (req, res, next) => {
   // set owner of new product to be current user
   // req.body.product.owner = req.user.id
-
-  Product.create(req.body.product)
+  Product.collection.drop()
+  const products = [
+    {
+      imagePath: 'url1',
+      title: 'title1',
+      description: 'aaa',
+      price: 10
+    }, {
+      imagePath: 'a',
+      title: 'a',
+      description: 'a',
+      price: 100000
+    }
+  ]
+  Product.create(products)
     // respond to succesful `create` with status 201 and JSON of new "product"
-    .then(product => {
-      res.status(201).json({ product: product.toObject() })
+    .then(products => {
+      res.status(201).json({ products: products })
     })
     // if an error occurs, pass it off to our error handler
     // the error handler needs the error message and the `res` object so that it
