@@ -21,7 +21,6 @@ const db = require('./config/db')
 const dotenv = require('dotenv')
 dotenv.config()
 
-// const seed = require('./config/seed.js')
 
 // Set the key based on the current environemnt
 // Set to secret key base test if in test
@@ -75,8 +74,6 @@ app.use(bodyParser.json())
 // this parses requests sent by `$.ajax`, which use a different content type
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// create seed in database
-// seed()
 // register route files
 app.use(exampleRoutes)
 app.use(userRoutes)
