@@ -9,6 +9,7 @@ const cors = require('cors')
 const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
 const productRoutes = require('./app/routes/product_routes')
+const cartRoutes = require('./app/routes/cart_routes')
 
 // require error handling middleware
 const errorHandler = require('./lib/error_handler')
@@ -20,7 +21,6 @@ const db = require('./config/db')
 // load secret keys for signing tokens from .env
 const dotenv = require('dotenv')
 dotenv.config()
-
 
 // Set the key based on the current environemnt
 // Set to secret key base test if in test
@@ -78,6 +78,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(exampleRoutes)
 app.use(userRoutes)
 app.use(productRoutes)
+app.use(cartRoutes)
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be
