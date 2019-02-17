@@ -5,7 +5,6 @@ const passport = require('passport')
 
 // pull in Mongoose model for carts
 const Cart = require('../models/cart')
-
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
 const customErrors = require('../../lib/custom_errors')
@@ -27,42 +26,46 @@ const requireToken = passport.authenticate('bearer', { session: false })
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
 
+
+
+
 // INDEX
 // GET /carts
-router.get('/carts', requireToken, (req, res, next) => {
-  Cart.find()
-    .then(carts => {
-      // `carts` will be an array of Mongoose documents
-      // we want to convert each one to a POJO, so we use `.map` to
-      // apply `.toObject` to each one
-      return carts.map(cart => cart.toObject())
-    })
-    // respond with status 200 and JSON of the carts
-    .then(carts => res.status(200).json({ carts: carts }))
-    // if an error occurs, pass it to the handler
-    .catch(next)
-})
+// router.get('/carts', requireToken, (req, res, next) => {
+//   Cart.find()
+//     .then(carts => {
+//       // `carts` will be an array of Mongoose documents
+//       // we want to convert each one to a POJO, so we use `.map` to
+//       // apply `.toObject` to each one
+//       return carts.map(cart => cart.toObject())
+//     })
+//     // respond with status 200 and JSON of the carts
+//     .then(carts => res.status(200).json({ carts: carts }))
+//     // if an error occurs, pass it to the handler
+//     .catch(next)
+// })
+//
 
 // SHOW
 // GET /carts/5a7db6c74d55bc51bdf39793
 router.get('/carts/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
-  Cart.findById(req.params.id)
+  Cart.findOne({owner: req.params.id})
     .then(handle404)
     // if `findById` is succesful, respond with 200 and "cart" JSON
+    // .then(cart => res.status(200).json({ cart: cart.toObject() }))
     .then(cart => res.status(200).json({ cart: cart.toObject() }))
-    // if an error occurs, pass it to the handler
+    // respond with status 200 and JSON of the carts
+    // .then(carts => res.status(200).json({ carts: carts }))
     .catch(next)
 })
-
-// CREATE
-// POST /carts
+//
+// // CREATE
+// // POST /carts
 router.post('/carts', (req, res, next) => {
   // set owner of new cart to be current user
   console.log('This is req.body', req.body)
   console.log('This is req.user', req.user)
-  // req.body.cart.owner = req.user.id
-
   // TODO: Check that cart does not exist, for curl-scripts
 
   Cart.create(req.body.cart)
@@ -75,12 +78,15 @@ router.post('/carts', (req, res, next) => {
     // can send an error message back to the client
     .catch(next)
 })
+//
+
 
 // UPDATE
 // PATCH /carts/5a7db6c74d55bc51bdf39793
 router.patch('/carts/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
+  console.log(req.body)
   delete req.body.cart.owner
 
   Cart.findById(req.params.id)
@@ -95,25 +101,26 @@ router.patch('/carts/:id', requireToken, removeBlanks, (req, res, next) => {
     })
     // if that succeeded, return 204 and no JSON
     .then(() => res.sendStatus(204))
+    // .then(cart => res.status(204).json({ cart: cart }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
-
-// DESTROY
-// DELETE /carts/5a7db6c74d55bc51bdf39793
-router.delete('/carts/:id', requireToken, (req, res, next) => {
-  Cart.findById(req.params.id)
-    .then(handle404)
-    .then(cart => {
-      // throw an error if current user doesn't own `cart`
-      requireOwnership(req, cart)
-      // delete the cart ONLY IF the above didn't throw
-      cart.remove()
-    })
-    // send back 204 and no content if the deletion succeeded
-    .then(() => res.sendStatus(204))
-    // if an error occurs, pass it to the handler
-    .catch(next)
-})
+//
+// // DESTROY
+// // DELETE /carts/5a7db6c74d55bc51bdf39793
+// router.delete('/carts/:id', requireToken, (req, res, next) => {
+//   Cart.findById(req.params.id)
+//     .then(handle404)
+//     .then(cart => {
+//       // throw an error if current user doesn't own `cart`
+//       requireOwnership(req, cart)
+//       // delete the cart ONLY IF the above didn't throw
+//       cart.remove()
+//     })
+//     // send back 204 and no content if the deletion succeeded
+//     .then(() => res.sendStatus(204))
+//     // if an error occurs, pass it to the handler
+//     .catch(next)
+// })
 
 module.exports = router
