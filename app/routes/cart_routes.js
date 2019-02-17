@@ -26,9 +26,6 @@ const requireToken = passport.authenticate('bearer', { session: false })
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
 
-
-
-
 // INDEX
 // GET /carts
 // router.get('/carts', requireToken, (req, res, next) => {
@@ -80,9 +77,7 @@ router.post('/carts', (req, res, next) => {
 })
 //
 
-
 // UPDATE
-// PATCH /carts/5a7db6c74d55bc51bdf39793
 router.patch('/carts/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
