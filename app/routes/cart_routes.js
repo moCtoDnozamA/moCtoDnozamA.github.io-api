@@ -80,6 +80,12 @@ router.patch('/carts/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   console.log(req.body)
+  // check cart.products is exist if not add it
+  if (!req.body.cart.products) {
+    console.log('no products')
+    req.body.cart.products = []
+  }
+  console.log(req.body)
   delete req.body.cart.owner
 
   Cart.findById(req.params.id)
