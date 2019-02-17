@@ -56,7 +56,6 @@ router.get('/carts/:id', requireToken, (req, res, next) => {
     // .then(carts => res.status(200).json({ carts: carts }))
     .catch(next)
 })
-//
 // // CREATE
 // // POST /carts
 router.post('/carts', (req, res, next) => {
@@ -64,7 +63,6 @@ router.post('/carts', (req, res, next) => {
   console.log('This is req.body', req.body)
   console.log('This is req.user', req.user)
   // TODO: Check that cart does not exist, for curl-scripts
-
   Cart.create(req.body.cart)
     // respond to succesful `create` with status 201 and JSON of new "cart"
     .then(cart => {
@@ -90,7 +88,6 @@ router.patch('/carts/:id', requireToken, removeBlanks, (req, res, next) => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
       requireOwnership(req, cart)
-
       // pass the result of Mongoose's `.update` to the next `.then`
       return cart.update(req.body.cart)
     })
