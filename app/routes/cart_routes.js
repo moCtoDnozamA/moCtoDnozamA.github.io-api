@@ -48,6 +48,8 @@ const router = express.Router()
 router.get('/carts/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Cart.findOne({owner: req.params.id})
+  // get product detail from reference
+    .populate('products.product')
     .then(handle404)
     // if `findById` is succesful, respond with 200 and "cart" JSON
     // .then(cart => res.status(200).json({ cart: cart.toObject() }))
