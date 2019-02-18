@@ -62,7 +62,6 @@ router.post('/sign-up', (req, res, next) => {
 router.post('/sign-in', (req, res, next) => {
   const pw = req.body.credentials.password
   let user
-
   // find a user based on the email that was passed
   User.findOne({ email: req.body.credentials.email })
     .then(record => {
@@ -89,6 +88,14 @@ router.post('/sign-in', (req, res, next) => {
         // this will send back 401 and a message about sending wrong parameters
         throw new BadCredentialsError()
       }
+    })
+    .then(user => {
+      if (user.email === 'jenny@gmail.com' || user.email === 'carlo@gmail.com') {
+        user.admin = true
+      } else {
+        user.admin = false
+      }
+      return user
     })
     .then(user => {
       // return status 201, the email, and the new token
