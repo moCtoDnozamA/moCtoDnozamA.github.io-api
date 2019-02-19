@@ -23,9 +23,8 @@ const db = require('./config/db')
 const dotenv = require('dotenv')
 dotenv.config()
 
-const keyPublishable = process.env.PUBLISHABLE_KEY;
-const keySecret = process.env.SECRET_KEY;
-const stripe = require('stripe')(keySecret);
+const keySecret = process.env.SECRET_KEY
+const stripe = require('stripe')(keySecret)
 // Set the key based on the current environemnt
 // Set to secret key base test if in test
 if (process.env.TESTENV) {
