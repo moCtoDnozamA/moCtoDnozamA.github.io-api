@@ -47,10 +47,10 @@ router.get('/orders', requireToken, (req, res, next) => {
 // GET /orders/5a7db6c74d55bc51bdf39793
 router.get('/orders/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
-  Order.findById(req.params.id)
+  Order.find({owner: req.params.id})
     .then(handle404)
     // if `findById` is succesful, respond with 200 and "order" JSON
-    .then(order => res.status(200).json({ order: order.toObject() }))
+    .then(order => res.status(200).json({ order: order }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
@@ -59,9 +59,7 @@ router.get('/orders/:id', requireToken, (req, res, next) => {
 // POST /orders
 router.post('/orders', requireToken, (req, res, next) => {
   // set owner of new order to be current user
-  console.log('req.body is: ', req.body)
   req.body.order.owner = req.user.id
-
   Order.create(req.body.order)
     // respond to succesful `create` with status 201 and JSON of new "order"
     .then(order => {
