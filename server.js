@@ -1,3 +1,4 @@
+
 // require necessary NPM packages
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -7,6 +8,9 @@ const cors = require('cors')
 // require route files
 const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
+const productRoutes = require('./app/routes/product_routes')
+const cartRoutes = require('./app/routes/cart_routes')
+const orderRoutes = require('./app/routes/order_routes')
 
 // require error handling middleware
 const errorHandler = require('./lib/error_handler')
@@ -19,6 +23,8 @@ const db = require('./config/db')
 const dotenv = require('dotenv')
 dotenv.config()
 
+const keySecret = process.env.SECRET_KEY
+const stripe = require('stripe')(keySecret)
 // Set the key based on the current environemnt
 // Set to secret key base test if in test
 if (process.env.TESTENV) {
@@ -74,6 +80,31 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // register route files
 app.use(exampleRoutes)
 app.use(userRoutes)
+app.use(productRoutes)
+app.use(cartRoutes)
+app.use(orderRoutes)
+
+app.post('/charge', (req, res) => {
+  console.log('req.body iss: ', req.body)
+  let amount = req.body.amount
+
+  stripe.customers.create({
+    email: req.body.token.email,
+    card: req.body.token.id
+  })
+    .then(customer =>
+      stripe.charges.create({
+        amount,
+        description: 'Sample Charge',
+        currency: 'usd',
+        customer: customer.id
+      }))
+    .then(charge => res.send(charge))
+    .catch(err => {
+      console.log('Error:', err)
+      res.status(500).send({error: 'Purchase Failed'})
+    })
+})
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be
