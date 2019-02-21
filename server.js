@@ -85,7 +85,6 @@ app.use(cartRoutes)
 app.use(orderRoutes)
 
 app.post('/charge', (req, res) => {
-  console.log('req.body iss: ', req.body)
   let amount = req.body.amount
 
   stripe.customers.create({
