@@ -41,8 +41,8 @@ Making code more DRY.
 ## LINKS
 [Back End Repo](https://github.com/moCtoDnozamA/moCtoDnozamA.github.io-api)
 
-[Front End Repo](https://github.com/moCtoDnozamA/moCtoDnozamA.github.io)
+[Front End Repo](https://github.com/moCtoDnozamA/moctodnozama)
 
-[Deployed Front End](https://moctodnozama.github.io/)
+[Deployed Front End](https://moctodnozama.github.io/moctodnozama/)
 
 [Deployed Heroku](https://moctodnozama.herokuapp.com)
