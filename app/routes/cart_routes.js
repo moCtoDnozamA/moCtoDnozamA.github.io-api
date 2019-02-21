@@ -61,10 +61,6 @@ router.get('/carts/:id', requireToken, (req, res, next) => {
 // // CREATE
 // // POST /carts
 router.post('/carts', (req, res, next) => {
-  // set owner of new cart to be current user
-  console.log('This is req.body', req.body)
-  console.log('This is req.user', req.user)
-  // TODO: Check that cart does not exist, for curl-scripts
   Cart.create(req.body.cart)
     // respond to succesful `create` with status 201 and JSON of new "cart"
     .then(cart => {
@@ -81,14 +77,12 @@ router.post('/carts', (req, res, next) => {
 router.patch('/carts/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
-  // console.log(req.body)
+
   delete req.body.cart.owner
   // check cart.products is exist if not add it
   if (!req.body.cart.products) {
-    console.log('no products')
     req.body.cart.products = []
   }
-  // console.log(req.body)
   Cart.findById(req.params.id)
     .then(handle404)
     .then(cart => {
