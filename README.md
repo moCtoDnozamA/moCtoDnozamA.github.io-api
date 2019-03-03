@@ -1,17 +1,19 @@
 # moCtoDnozamA API
 
+This is the backend API for our mock e-commerce website we created. The database uses MongoDB and features four key models to hold our data: the user, cart, order, and product.
+
 ## TECHNOLOGIES IN USE
 
-- JavaScript
-- Express.js
-- Node.js
-- MongoDB
-- Mongoose
-- AJAX
-- jQuery
-- Handlebars
-- CSS/Bootstrap
-- HTML5
+-   JavaScript
+-   Express.js
+-   Node.js
+-   MongoDB
+-   Mongoose
+-   AJAX
+-   jQuery
+-   Handlebars
+-   CSS/Bootstrap
+-   HTML5
 
 ## PLANNING & DEVELOPMENT
 
@@ -38,8 +40,8 @@ User: User has acess to standard user actions sign-up/sign-in, change password, 
 UX design should be cleaner.
 Making code more DRY.
 
-
 ## LINKS
+
 [Back End Repo](https://github.com/moCtoDnozamA/moCtoDnozamA.github.io-api)
 
 [Front End Repo](https://github.com/moCtoDnozamA/moctodnozama)
@@ -47,3 +49,11 @@ Making code more DRY.
 [Deployed Front End](https://moctodnozama.github.io/moctodnozama/)
 
 [Deployed Heroku](https://moctodnozama.herokuapp.com)
+
+## TEAM
+
+[Carlo Jacob](https://github.com/carlojacob)
+
+[Jason Zhang](https://github.com/jason920207)
+
+[Jenny Northcott](https://github.com/jennasaurusrex)
