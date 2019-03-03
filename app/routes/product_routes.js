@@ -60,19 +60,25 @@ router.get('/products/:id', (req, res, next) => {
 
 // CREATE
 // POST /products
-router.post('/products', (req, res, next) => {
+router.post('/products', requireToken, (req, res, next) => {
   // set owner of new product to be current user
   // req.body.product.owner = req.user.id
-  Product.collection.drop()
-  Product.create(productSeed)
-    // respond to succesful `create` with status 201 and JSON of new "product"
-    .then(products => {
-      res.status(201).json({ products: products })
-    })
+  if (req.body.isAdmin && (req.body.email === 'carlo@gmail.com' || req.body.email === 'jenny@gmail.com')) {
+    Product.collection.drop()
+    Product.create(productSeed)
+    // respond to succesful `create` with status 201 and JSON of new "products"
+      .then(products => {
+        res.status(201).json({ products: products })
+      })
     // if an error occurs, pass it off to our error handler
     // the error handler needs the error message and the `res` object so that it
     // can send an error message back to the client
-    .catch(next)
+      .catch(next)
+  } else {
+    // Output message to console (terminal) if user is not authorized to seed.
+    console.log('You do not have permission to seed this collection.')
+    next()
+  }
 })
 
 // UPDATE
